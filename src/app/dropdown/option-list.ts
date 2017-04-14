@@ -1,10 +1,11 @@
-import {Option} from './option';
-import {IOption} from './option.interface';
-import {Diacritics} from './diacritics';
+import { Option } from './option';
+import { IOption } from './option.interface';
+import { Diacritics } from './diacritics';
 
 export class OptionList {
 
     private _options: Array<Option>;
+    private _remaingItem: number;
 
     /* Consider using these for performance improvement. */
     // private _selection: Array<Option>;
@@ -125,12 +126,27 @@ export class OptionList {
         });
     }
 
-       /* Add fresh filter element  */
+    /* Add fresh filter element  */
     add(freshElement) {
-       
-     this.options.push(freshElement);
-     
-   }
+
+        this.options.push(freshElement);
+
+    }
+
+    /*set total page item*/
+    get pageItem(): number {
+        return this._remaingItem;
+    }
+
+    setRemainingPageItem(maxPage): number {
+        if (this.options.length < maxPage) {
+            this._remaingItem = maxPage - this.options.length;
+        } else {
+            this._remaingItem = this.options.length;
+        }
+        return this.pageItem;
+    }
+
 
     /** Highlight. **/
 

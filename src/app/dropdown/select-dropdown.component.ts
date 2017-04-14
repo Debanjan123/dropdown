@@ -35,6 +35,7 @@ export class SelectDropdownComponent
     @Input() width: number;
     @Input() placeholder: string;
     @Input() addFresh: boolean ;
+    
 
     @Output() close = new EventEmitter<boolean>();
     @Output() optionClicked = new EventEmitter<Option>();
@@ -170,7 +171,7 @@ export class SelectDropdownComponent
 
     /* Add new dropdown element */
 private addNewDropdownElement() {
- let addFreshElement = {label: this.notFoundMsg, value: this.optionList.options.length + 1};
+ let addFreshElement = {label: this.notFoundMsg, value: this.optionList.options.length + 1, disabled: false, highlighted: false};
   this.optionList.add(addFreshElement);
   this.freshDataAdd.emit(addFreshElement);
 

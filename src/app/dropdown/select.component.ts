@@ -23,6 +23,7 @@ export const SELECT_VALUE_ACCESSOR: ExistingProvider = {
 export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit {
 
     @Input() options: Array<IOption>;
+    @Input() maxSize: number;
 
     @Input() allowClear: boolean = false;
     @Input() disabled: boolean = false;
@@ -143,12 +144,17 @@ export class SelectComponent implements ControlValueAccessor, OnChanges, OnInit 
 
     onSingleFilterInput(term: string) {
         let hasShown: boolean = this.optionList.filter(term);
+        this.optionList.setRemainingPageItem(this.maxSize);
         if (!hasShown && this.addFresh) {
             this.notFoundMsg = term;
+            
         } else {
             this.noOptionsFound.emit(term);
         }
+        
     }
+
+  
 
     onSingleFilterKeydown(event: any) {
         this.handleSingleFilterKeydown(event);
